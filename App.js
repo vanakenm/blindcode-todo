@@ -9,14 +9,18 @@ const TODOS = [
   {id: 3, title: "Cuire la salle de bain", done: true}
 ]
 
+const onPress = (item) => {
+  console.log("Button pressed")
+  console.log(item)
+}
 const renderItem = ({item}) => {
   let check = item.done ? "v" : "x"
 
   return (
-    <View>
+    <View style={styles.item}>
       <Text>{check} {item.title}</Text>
-      <TouchableOpacity>
-        Mark as done
+      <TouchableOpacity onPress={onPress} style={styles.button}>
+        Done
       </TouchableOpacity>
     </View>
   );
@@ -42,6 +46,18 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'left',
     margin: '10px'
+  },
+  item: {
+    flexDirection: "row",
+    flex: 1,
+    borderBottomWidth: 1,
+    borderBottomColor: "lightgray",
+    margin: "5px",
+    justifyContent: 'space-between '
+  },
+  button: {
+    backgroundColor: "green",
+    borderRadius: "3px"
   },
   container: {
     flex: 1,

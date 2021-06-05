@@ -1,17 +1,48 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View, FlatList, Text, TouchableOpacity } from 'react-native';
+import Greetings from './Greetings.js'
 
-export default function App() {
+const TODOS = [
+  {id: 1, title: "Tondre le chien", done: false},
+  {id: 2, title: "Promener la pelouse", done: false},
+  {id: 3, title: "Cuire la salle de bain", done: true}
+]
+
+const renderItem = ({item}) => {
+  let check = item.done ? "v" : "x"
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+    <View>
+      <Text>{check} {item.title}</Text>
+      <TouchableOpacity>
+        Mark as done
+      </TouchableOpacity>
     </View>
   );
 }
 
+export default function App() {
+  return (
+    <>
+    <View style={styles.container}>
+      <Greetings name="Bob" />
+      <Greetings name="Sarah" />
+      <StatusBar style="auto" />
+    </View>
+    <View style={styles.list}>
+      <FlatList data={TODOS} renderItem={renderItem} keyExtractor={item => item.id}/>
+    </View>
+    </>
+  );
+}
+
 const styles = StyleSheet.create({
+  list: {
+    flex: 1,
+    justifyContent: 'left',
+    margin: '10px'
+  },
   container: {
     flex: 1,
     backgroundColor: '#fff',
